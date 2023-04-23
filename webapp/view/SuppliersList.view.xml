@@ -1,0 +1,33 @@
+<mvc:View
+	controllerName="sap.ui.demo.walkthrough.controller.SupplierList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<List
+		id="supplierList"
+		class="sapUiResponsiveMargin"
+		width="auto"
+		items="{
+         path : 'supplier>/Suppliers',
+		 sorter: {
+				path : 'Country',
+				group : true
+		 	}
+      }">
+	  <headerToolbar>
+         <Toolbar>
+            <Title text="{i18n>supplierListTitle}"/>
+            <ToolbarSpacer/>
+            <SearchField width="50%" search=".onFilterInvoices"/>
+         </Toolbar>
+      </headerToolbar>
+		<items>
+			<ObjectListItem
+				title="{supplier>CompanyName}"
+				type="Navigation"
+					press="onPress">
+				<ObjectAttribute text="{supplier>Address}" />
+				<ObjectAttribute text="{supplier>Phone}" />
+			</ObjectListItem>
+		</items>
+	</List>
+</mvc:View>
