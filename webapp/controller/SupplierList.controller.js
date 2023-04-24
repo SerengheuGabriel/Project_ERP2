@@ -28,7 +28,7 @@ sap.ui.define([
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
 			var oRouter = this.getOwnerComponent().getRouter();
-			oRouter.navTo("detail", {
+			oRouter.navTo("items", {
 				supplierPath: window.encodeURIComponent(oItem.getBindingContext("supplier").getPath().substr(1))
 			});
 		}

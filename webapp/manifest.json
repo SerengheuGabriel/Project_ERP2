@@ -79,16 +79,20 @@
 		  "routes": [
 			{
 			  "pattern": "",
-			  "name": "overview",
-			  "target": "overview"
+			  "name": "suppliers",
+			  "target": "suppliers"
 			},
 			{
-			  "pattern": "detail/{invoicePath}",
-			  "name": "detail",
-			  "target": "detail"
+			  "pattern": "items/{suplierPath}",
+			  "name": "items",
+			  "target": "items"
 			}
 		  ],
 		  "targets": {
+			"suppliers": {
+				"id": "suppliers",
+				"name": "SuppliersList"
+			},
 			"overview": {
 			  "id": "overview",
 			  "name": "Overview"
