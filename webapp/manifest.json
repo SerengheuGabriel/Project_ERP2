@@ -83,7 +83,7 @@
 			  "target": "suppliers"
 			},
 			{
-			  "pattern": "items/{suplierPath}",
+			  "pattern": "items/{supplierPath}",
 			  "name": "items",
 			  "target": "items"
 			}
@@ -100,6 +100,10 @@
 			"detail": {
 			  "id": "detail",
 			  "name": "Detail"
+			},
+			"items": {
+				"id": "items",
+				"name": "ItemsList"
 			}
 		  }
 		},

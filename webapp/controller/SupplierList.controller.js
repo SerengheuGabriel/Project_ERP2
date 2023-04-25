@@ -29,7 +29,7 @@ sap.ui.define([
 			var oItem = oEvent.getSource();
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("items", {
-				supplierPath: window.encodeURIComponent(oItem.getBindingContext("supplier").getPath().substr(1))
+				supplierPath: window.encodeURIComponent(oItem.getBindingContext("supplier").getObject().SupplierID)
 			});
 		}
 	});
