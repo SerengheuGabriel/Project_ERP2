@@ -12,7 +12,7 @@
 				class="sapUiResponsiveMargin"
 				width="auto"
 				items="{
-				path : 'supplier>/Suppliers',
+				path : '/Suppliers',
 				sorter: {
 						path : 'Country',
 						group : true
@@ -27,11 +27,11 @@
 			</headerToolbar>
 				<items>
 					<ObjectListItem
-						title="{supplier>CompanyName}"
+						title="{CompanyName}"
 						type="Navigation"
 							press="onPress">
-						<ObjectAttribute text="{supplier>Address}" />
-						<ObjectAttribute text="{supplier>Phone}" />
+						<ObjectAttribute text="{Address}" />
+						<ObjectAttribute text="{Phone}" />
 					</ObjectListItem>
 				</items>
 			</List>

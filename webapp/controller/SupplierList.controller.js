@@ -28,8 +28,8 @@ sap.ui.define([
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
 			var oRouter = this.getOwnerComponent().getRouter();
-			oRouter.navTo("items", {
-				supplierPath: window.encodeURIComponent(oItem.getBindingContext("supplier").getObject().SupplierID)
+			oRouter.navTo("products", {
+				supplierPath: window.encodeURIComponent(oItem.getBindingContext().getObject().SupplierID)
 			});
 		}
 	});

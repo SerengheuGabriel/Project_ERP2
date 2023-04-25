@@ -57,13 +57,7 @@
 					"fallbackLocale": ""
 				}
 			},
-			"invoice": {
-				"dataSource": "dataRemote"
-			},
-			"categories": {
-				"dataSource": "dataRemote"
-			},
-			"supplier": {
+			"": {
 				"dataSource": "dataRemote"
 			}
 		},
@@ -83,9 +77,9 @@
 			  "target": "suppliers"
 			},
 			{
-			  "pattern": "items/{supplierPath}",
-			  "name": "items",
-			  "target": "items"
+			  "pattern": "products/{supplierPath}",
+			  "name": "products",
+			  "target": "products"
 			}
 		  ],
 		  "targets": {
@@ -101,9 +95,9 @@
 			  "id": "detail",
 			  "name": "Detail"
 			},
-			"items": {
-				"id": "items",
-				"name": "ItemsList"
+			"products": {
+				"id": "products",
+				"name": "ProductsList"
 			}
 		  }
 		},
