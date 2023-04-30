@@ -7,7 +7,21 @@
 			<Title text="{i18n>appTitle}"/>
 		</headerContent>
 		<content>
-			
+			<Table items="{
+				path: '/Products'
+			}">
+			<columns>
+				<Column />
+				<Column />
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Label text="ok" />
+					<Label text="{productName}" />
+					<Label text="ok2" />
+					<Label text="{SupplierID}" />
+				</ColumnListItem>
+			</items>
 		</content>
 		<footer>
 				<OverflowToolbar>

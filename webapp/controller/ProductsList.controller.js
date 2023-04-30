@@ -12,7 +12,7 @@ sap.ui.define([
 			this.getView().bindElement({
 				path: "/products(" + window.decodeURIComponent(oEvent.getParameter("arguments").supplierPath+")"),
 				parameters : {
-					expand : "Parent"
+					expand : "Supplier"
 				 }
 			});
 			this.getView().bindElement(sPath);
