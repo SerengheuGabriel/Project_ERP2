@@ -57,13 +57,7 @@
 					"fallbackLocale": ""
 				}
 			},
-			"invoice": {
-				"dataSource": "dataRemote"
-			},
-			"categories": {
-				"dataSource": "dataRemote"
-			},
-			"supplier": {
+			"": {
 				"dataSource": "dataRemote"
 			}
 		},
@@ -79,16 +73,20 @@
 		  "routes": [
 			{
 			  "pattern": "",
-			  "name": "overview",
-			  "target": "overview"
+			  "name": "suppliers",
+			  "target": "suppliers"
 			},
 			{
-			  "pattern": "detail/{invoicePath}",
-			  "name": "detail",
-			  "target": "detail"
+			  "pattern": "products/{supplierPath}",
+			  "name": "products",
+			  "target": "products"
 			}
 		  ],
 		  "targets": {
+			"suppliers": {
+				"id": "suppliers",
+				"name": "SuppliersList"
+			},
 			"overview": {
 			  "id": "overview",
 			  "name": "Overview"
@@ -96,6 +94,10 @@
 			"detail": {
 			  "id": "detail",
 			  "name": "Detail"
+			},
+			"products": {
+				"id": "products",
+				"name": "ProductsList"
 			}
 		  }
 		},
