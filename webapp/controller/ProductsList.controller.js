@@ -44,9 +44,9 @@ sap.ui.define([
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
 				aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-				 new Filter("UnitsInStock", FilterOperator.EQ, sQuery)], and: false}));
-				console.log(this.getView().byId("productsTable"));
-				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getRows()[0].getCells()[1].getText()));
+				new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[1].getProperty("text"))], and: true}));
+			} else {
+				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[1].getProperty("text")));
 			}
 
 			// filter binding
@@ -54,6 +54,13 @@ sap.ui.define([
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
 
+		}, 
+		onPress: function (oEvent) {
+			var oItem = oEvent.getSource();
+			var oRouter = this.getOwnerComponent().getRouter();
+			oRouter.navTo("products", {
+				supplierPath: window.encodeURIComponent(oItem.getBindingContext().getObject().SupplierID)
+			});
 		}
 
 	});

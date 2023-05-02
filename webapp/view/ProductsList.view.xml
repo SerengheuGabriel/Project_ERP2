@@ -18,29 +18,31 @@
 				</Toolbar>
 			</headerToolbar>
 			<columns>
-				<Column width="11em" id="ProductNameColumn">
+				<Column class=".sapMSltMinWidth" id="ProductNameColumn">
 					<header>
 						<Text text="Product Name" />
 					</header>
 				</Column>
-				<Column hAlign="End" width="5em" id="SupplierIDColumn">
+				<Column class=".sapMSltMinWidth" id="SupplierIDColumn">
 					<header>
 						<Text text="Supplier" />
 					</header>
 				</Column>
-				<Column hAlign="End" width="5em" id="QuantityColumn">
+				<Column class=".sapMSltMinWidth" id="QuantityColumn">
 					<header>
 						<Text text="Units In Stock" />
 					</header>
 				</Column>
-				<Column hAlign="End" width="5em" id="PriceColumn">
+				<Column class=".sapMSltMinWidth" id="PriceColumn">
 					<header>
 						<Text text="Unit Price"/>
 					</header>
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem>
+				<ColumnListItem
+				type="Navigation"
+							press="onPress">
 					<Text text="{ProductName}" />
 					<Text text="{SupplierID}" />
 					<Text text="{UnitsInStock}" />
