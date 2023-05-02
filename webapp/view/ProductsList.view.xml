@@ -10,20 +10,32 @@
 		</headerContent>
 		<content>
 		<Table id="productsTable" items="{/Products}">
+			<headerToolbar>
+				<Toolbar>
+					<Title text="{i18n>supplierListTitle}"/>
+					<ToolbarSpacer/>
+					<SearchField width="50%" search=".onFilterProducts"/>
+				</Toolbar>
+			</headerToolbar>
 			<columns>
-				<Column width="11em">
+				<Column width="11em" id="ProductNameColumn">
 					<header>
 						<Text text="Product Name" />
 					</header>
 				</Column>
-				<Column hAlign="End" width="5em">
+				<Column hAlign="End" width="5em" id="SupplierIDColumn">
 					<header>
 						<Text text="Supplier" />
 					</header>
 				</Column>
-				<Column hAlign="End" width="5em">
+				<Column hAlign="End" width="5em" id="QuantityColumn">
 					<header>
 						<Text text="Units In Stock" />
+					</header>
+				</Column>
+				<Column hAlign="End" width="5em" id="PriceColumn">
+					<header>
+						<Text text="Unit Price"/>
 					</header>
 				</Column>
 			</columns>
@@ -32,6 +44,7 @@
 					<Text text="{ProductName}" />
 					<Text text="{SupplierID}" />
 					<Text text="{UnitsInStock}" />
+					<Text text="{UnitPrice}" />
 				</ColumnListItem>
 			</items>
 		</Table>
