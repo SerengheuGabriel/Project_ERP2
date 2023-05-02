@@ -1,13 +1,55 @@
 <mvc:View
-	controllerName="sap.ui.demo.walkthrough.controller.SupplierList"
+	controllerName="sap.ui.demo.walkthrough.controller.ProductsList"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page>
+	<Page
+		showNavButton="true"
+		navButtonPress=".onNavBack">
 		<headerContent>
 			<Title text="{i18n>appTitle}"/>
 		</headerContent>
 		<content>
-			
+		<Table id="productsTable" items="{/Products}">
+			<headerToolbar>
+				<Toolbar>
+					<Title text="{i18n>supplierListTitle}"/>
+					<ToolbarSpacer/>
+					<SearchField width="50%" search=".onFilterProducts"/>
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column class=".sapMSltMinWidth" id="ProductNameColumn">
+					<header>
+						<Text text="Product Name" />
+					</header>
+				</Column>
+				<Column class=".sapMSltMinWidth" id="SupplierIDColumn">
+					<header>
+						<Text text="Supplier" />
+					</header>
+				</Column>
+				<Column class=".sapMSltMinWidth" id="QuantityColumn">
+					<header>
+						<Text text="Units In Stock" />
+					</header>
+				</Column>
+				<Column class=".sapMSltMinWidth" id="PriceColumn">
+					<header>
+						<Text text="Unit Price"/>
+					</header>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem
+				type="Navigation"
+							press="onPress">
+					<Text text="{ProductName}" />
+					<Text text="{SupplierID}" />
+					<Text text="{UnitsInStock}" />
+					<Text text="{UnitPrice}" />
+				</ColumnListItem>
+			</items>
+		</Table>
 		</content>
 		<footer>
 				<OverflowToolbar>
