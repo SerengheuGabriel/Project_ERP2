@@ -1,27 +1,40 @@
 <mvc:View
-	controllerName="sap.ui.demo.walkthrough.controller.SupplierList"
+	controllerName="sap.ui.demo.walkthrough.controller.ProductsList"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-	<Page>
+	<Page
+		showNavButton="true"
+		navButtonPress=".onNavBack">
 		<headerContent>
 			<Title text="{i18n>appTitle}"/>
 		</headerContent>
 		<content>
-			<Table items="{
-				path: '/Products'
-			}">
+		<Table id="productsTable" items="{/Products}">
 			<columns>
-				<Column />
-				<Column />
+				<Column width="11em">
+					<header>
+						<Text text="Product Name" />
+					</header>
+				</Column>
+				<Column hAlign="End" width="5em">
+					<header>
+						<Text text="Supplier" />
+					</header>
+				</Column>
+				<Column hAlign="End" width="5em">
+					<header>
+						<Text text="Units In Stock" />
+					</header>
+				</Column>
 			</columns>
 			<items>
 				<ColumnListItem>
-					<Label text="ok" />
-					<Label text="{productName}" />
-					<Label text="ok2" />
-					<Label text="{SupplierID}" />
+					<Text text="{ProductName}" />
+					<Text text="{SupplierID}" />
+					<Text text="{UnitsInStock}" />
 				</ColumnListItem>
 			</items>
+		</Table>
 		</content>
 		<footer>
 				<OverflowToolbar>
