@@ -12,7 +12,7 @@
 		<Table id="productsTable" items="{/Products}">
 			<headerToolbar>
 				<Toolbar>
-					<Title text="{i18n>supplierListTitle}"/>
+					<Title text="{i18n>productsListTitle}"/>
 					<ToolbarSpacer/>
 					<SearchField width="50%" search=".onFilterProducts"/>
 				</Toolbar>
@@ -20,22 +20,22 @@
 			<columns>
 				<Column class=".sapMSltMinWidth" id="ProductNameColumn">
 					<header>
-						<Text text="Product Name" />
+						<Text text="{i18n>productNameColumn}" />
 					</header>
 				</Column>
 				<Column class=".sapMSltMinWidth" id="SupplierIDColumn">
 					<header>
-						<Text text="Supplier" />
+						<Text text="{i18n>supplierIDColumn}" />
 					</header>
 				</Column>
 				<Column class=".sapMSltMinWidth" id="QuantityColumn">
 					<header>
-						<Text text="Units In Stock" />
+						<Text text="{i18n>quantityColumn}" />
 					</header>
 				</Column>
 				<Column class=".sapMSltMinWidth" id="PriceColumn">
 					<header>
-						<Text text="Unit Price"/>
+						<Text text="{i18n>priceColumn}"/>
 					</header>
 				</Column>
 			</columns>
