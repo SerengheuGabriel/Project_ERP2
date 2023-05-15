@@ -12,7 +12,7 @@
 		<Table id="productsTable" items="{/Products}">
 			<headerToolbar>
 				<Toolbar>
-					<Title text="{i18n>productsListTitle}"/>
+					<Title text="{i18n>productListTitle}"/>
 					<ToolbarSpacer/>
 					<SearchField width="50%" search=".onFilterProducts"/>
 				</Toolbar>
