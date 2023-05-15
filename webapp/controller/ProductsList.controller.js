@@ -68,7 +68,7 @@ sap.ui.define([
 		},
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
-			// var aFilter = [];
+			var aFilter = [];
 			var oList = new List({
 				items: {
 					path: "/Products",
@@ -78,7 +78,7 @@ sap.ui.define([
 					})
 				}
 			});
-			// aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oItem.getAggregation("cells")[0].getProperty("text")));
+			aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oItem.getAggregation("cells")[0].getProperty("text")));
 			if (!this.oDraggableDialog) {
 				this.oDraggableDialog = new Dialog({
 					title: "Draggable Available Products",
@@ -98,8 +98,9 @@ sap.ui.define([
 				// console.log(oList.mBindingInfos.items);
 				// // console.log(oList.getBindingContext());
 				// console.log(oList.getBinding("items"));
-				// var oBinding = oList.mBindingInfos.items;
-				// oBinding.filter(aFilter);
+				var oBinding = oList.mBindingInfos.items;
+				console.log(oBinding);
+				oBinding.filter(aFilter);
 
 				//to get access to the controller's model
 				this.getView().addDependent(this.oDraggableDialog);
