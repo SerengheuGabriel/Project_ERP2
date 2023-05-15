@@ -2,8 +2,12 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
-], function (Controller, History, Filter, FilterOperator) {
+    "sap/ui/model/FilterOperator",
+	"sap/m/Dialog",
+	"sap/m/List",
+	"sap/m/StandardListItem",
+	"sap/m/Button"
+], function (Controller, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
 	"use strict";
 	return Controller.extend("sap.ui.demo.walkthrough.controller.ItemsList", {
 
@@ -44,9 +48,9 @@ sap.ui.define([
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
 				aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-				new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[1].getProperty("text"))], and: true}));
+				new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text"))], and: true}));
 			} else {
-				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[1].getProperty("text")));
+				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text")));
 			}
 
 			// filter binding
@@ -61,6 +65,47 @@ sap.ui.define([
 			oRouter.navTo("products", {
 				supplierPath: window.encodeURIComponent(oItem.getBindingContext().getObject().SupplierID)
 			});
+		},
+		onPress: function (oEvent) {
+			var oItem = oEvent.getSource();
+			// var aFilter = [];
+			var oList = new List({
+				items: {
+					path: "/Products",
+					template: new StandardListItem({
+						title: "{ProductName}",
+						counter: "{UnitsInStock}"
+					})
+				}
+			});
+			// aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oItem.getAggregation("cells")[0].getProperty("text")));
+			if (!this.oDraggableDialog) {
+				this.oDraggableDialog = new Dialog({
+					title: "Draggable Available Products",
+					contentWidth: "550px",
+					contentHeight: "300px",
+					draggable: true,
+					content: oList,
+					endButton: new Button({
+						text: "Close",
+						press: function () {
+							this.oDraggableDialog.close();
+						}.bind(this)
+					})
+				});
+
+				// console.log(oList);
+				// console.log(oList.mBindingInfos.items);
+				// // console.log(oList.getBindingContext());
+				// console.log(oList.getBinding("items"));
+				// var oBinding = oList.mBindingInfos.items;
+				// oBinding.filter(aFilter);
+
+				//to get access to the controller's model
+				this.getView().addDependent(this.oDraggableDialog);
+			}
+
+			this.oDraggableDialog.open();
 		}
 
 	});

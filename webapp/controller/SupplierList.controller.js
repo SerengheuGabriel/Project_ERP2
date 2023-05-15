@@ -20,7 +20,9 @@ sap.ui.define([
 
 			// filter binding
 			var oList = this.byId("supplierList");
+			console.log(oList);
 			var oBinding = oList.getBinding("items");
+			console.log(oBinding);
 			oBinding.filter(aFilter);
 
 			
