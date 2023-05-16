@@ -75,8 +75,8 @@ sap.ui.define([
 			});
 			this.oDraggableDialog = new Dialog({
 				title: oSelectedProduct.ProductName,
-				contentWidth: "450px",
-				contentHeight: "200px",
+				contentWidth: "30%",
+				contentHeight: "20%",
 				draggable: true,
 				content: oList,
 				endButton: new Button({
