@@ -18,6 +18,11 @@
 				</Toolbar>
 			</headerToolbar>
 			<columns>
+				<Column class=".sapMSltMinWidth" id="ProductIDColumn">
+					<header>
+						<Text text="{i18n>productIDColumn}" />
+					</header>
+				</Column>
 				<Column class=".sapMSltMinWidth" id="ProductNameColumn">
 					<header>
 						<Text text="{i18n>productNameColumn}" />
@@ -43,6 +48,7 @@
 				<ColumnListItem
 				type="Navigation"
 							press="onPress">
+					<Text text="{ProductID}"/>
 					<Text text="{ProductName}" />
 					<Text text="{SupplierID}" />
 					<Text text="{UnitsInStock}" />
