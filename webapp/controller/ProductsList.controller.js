@@ -68,43 +68,34 @@ sap.ui.define([
 		},
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
-			var aFilter = [];
+			var oSelectedProduct = oItem.getBindingContext().getObject();
+
 			var oList = new List({
-				items: {
-					path: "/Products",
-					template: new StandardListItem({
-						title: "{ProductName}",
-						counter: "{UnitsInStock}"
+				items: 
+					new StandardListItem({
+						title: oSelectedProduct.ProductName,
+						description: "Price: " + oSelectedProduct.UnitPrice.substring(0, oSelectedProduct.UnitPrice.length - 2),
+						info: oSelectedProduct.QuantityPerUnit,
+						fieldGroupIds: toString(oSelectedProduct.CategoryID),
+						counter: parseInt(oSelectedProduct.UnitsInStock)
 					})
-				}
 			});
-			aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oItem.getAggregation("cells")[0].getProperty("text")));
-			if (!this.oDraggableDialog) {
-				this.oDraggableDialog = new Dialog({
-					title: "Draggable Available Products",
-					contentWidth: "550px",
-					contentHeight: "300px",
-					draggable: true,
-					content: oList,
-					endButton: new Button({
-						text: "Close",
-						press: function () {
-							this.oDraggableDialog.close();
-						}.bind(this)
-					})
-				});
+			this.oDraggableDialog = new Dialog({
+				title: oSelectedProduct.ProductName,
+				contentWidth: "450px",
+				contentHeight: "200px",
+				draggable: true,
+				content: oList,
+				endButton: new Button({
+					text: "Close",
+					press: function () {
+						this.oDraggableDialog.close();
+					}.bind(this)
+				})
+			});
 
-				// console.log(oList);
-				// console.log(oList.mBindingInfos.items);
-				// // console.log(oList.getBindingContext());
-				// console.log(oList.getBinding("items"));
-				var oBinding = oList.mBindingInfos.items;
-				console.log(oBinding);
-				oBinding.filter(aFilter);
-
-				//to get access to the controller's model
-				this.getView().addDependent(this.oDraggableDialog);
-			}
+			//to get access to the controller's model
+			this.getView().addDependent(this.oDraggableDialog);
 
 			this.oDraggableDialog.open();
 		}
