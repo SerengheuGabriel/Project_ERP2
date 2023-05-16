@@ -61,20 +61,13 @@ sap.ui.define([
 		}, 
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
-			var oRouter = this.getOwnerComponent().getRouter();
-			oRouter.navTo("products", {
-				supplierPath: window.encodeURIComponent(oItem.getBindingContext().getObject().SupplierID)
-			});
-		},
-		onPress: function (oEvent) {
-			var oItem = oEvent.getSource();
 			var oSelectedProduct = oItem.getBindingContext().getObject();
 
 			var oList = new List({
 				items: 
 					new StandardListItem({
 						title: oSelectedProduct.ProductName,
-						description: "Price: " + oSelectedProduct.UnitPrice.substring(0, oSelectedProduct.UnitPrice.length - 2),
+						description: "{i18n>priceField}" + oSelectedProduct.UnitPrice.substring(0, oSelectedProduct.UnitPrice.length - 2),
 						info: oSelectedProduct.QuantityPerUnit,
 						fieldGroupIds: toString(oSelectedProduct.CategoryID),
 						counter: parseInt(oSelectedProduct.UnitsInStock)
@@ -87,7 +80,7 @@ sap.ui.define([
 				draggable: true,
 				content: oList,
 				endButton: new Button({
-					text: "Close",
+					text: "{i18n>closeButton}",
 					press: function () {
 						this.oDraggableDialog.close();
 					}.bind(this)
