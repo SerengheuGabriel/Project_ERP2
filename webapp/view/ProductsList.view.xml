@@ -25,7 +25,7 @@
 				<m:SearchField
 					width="50%" 
 					search=".onFilterProducts" 
-					placeholder="kk"/>
+					placeholder="{i18n>placeholder}"/>
 			</m:OverflowToolbar>
 			</extension>
 			<columns>

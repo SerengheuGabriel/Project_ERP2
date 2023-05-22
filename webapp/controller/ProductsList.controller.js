@@ -21,7 +21,6 @@ sap.ui.define([
 
 			var sPath = this.getView().getModel().createKey("/Suppliers",
                 {SupplierID: oEvent.getParameter("arguments").supplierPath});
-			console.log(sPath);
             this.getView().bindElement({path: sPath});
 
 		},
@@ -41,12 +40,11 @@ sap.ui.define([
 		onFilterProducts: function (oEvent) {
 			var aFilter = [];
 			var sQuery = oEvent.getParameter("query");
-			
-			// aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-			// new Filter("ProductID", sap.ui.model.FilterOperator.EQ, sQuery)], and: false}));
 		
 			aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
-			aFilter.push(new Filter("ProductID", sap.ui.model.FilterOperator.EQ, sQuery));
+
+			// aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
+			// 	 new Filter("ProductID", FilterOperator.Contains, sQuery)], and: false}));
 
 			// filter binding
 			var oList = this.byId("productsTable");

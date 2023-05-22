@@ -14,7 +14,7 @@ sap.ui.define([
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
 				aFilter.push(new Filter({filters:[new Filter("CompanyName", FilterOperator.Contains, sQuery),
-				 new Filter("Country", FilterOperator.Contains, sQuery)], and: false}));
+				 new Filter("Country", FilterOperator.Contains, sQuery), new Filter("Address", FilterOperator.Contains, sQuery)], and: false}));
 			}
 
 			// filter binding
