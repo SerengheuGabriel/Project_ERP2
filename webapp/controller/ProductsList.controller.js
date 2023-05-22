@@ -9,7 +9,7 @@ sap.ui.define([
 	"sap/m/Button"
 ], function (BaseController, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
 	"use strict";
-	return BaseController.extend("sap.ui.demo.walkthrough.controller.ItemsList", {
+	return BaseController.extend("sap.ui.demo.walkthrough.controller.ProductsList", {
 
 
 		onInit: function () {
@@ -19,15 +19,10 @@ sap.ui.define([
 		
 		_onObjectMatched: function (oEvent) {
 
-			var aFilter = [];
-			var oArgs = oEvent.getParameter("arguments").supplierPath;
-			var oFilter1 = new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oArgs);
-			aFilter.push(oFilter1);
-
-			// filter binding
-			var oList = this.byId("productsTable");
-			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
+			var sPath = this.getView().getModel().createKey("/Suppliers",
+                {SupplierID: oEvent.getParameter("arguments").supplierPath});
+			console.log(sPath);
+            this.getView().bindElement({path: sPath});
 
 		},
 
@@ -46,16 +41,16 @@ sap.ui.define([
 		onFilterProducts: function (oEvent) {
 			var aFilter = [];
 			var sQuery = oEvent.getParameter("query");
-			if (sQuery) {
-				aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-				new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text"))], and: true}));
-			} else {
-				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text")));
-			}
+			
+			// aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
+			// new Filter("ProductID", sap.ui.model.FilterOperator.EQ, sQuery)], and: false}));
+		
+			aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
+			aFilter.push(new Filter("ProductID", sap.ui.model.FilterOperator.EQ, sQuery));
 
 			// filter binding
 			var oList = this.byId("productsTable");
-			var oBinding = oList.getBinding("items");
+			var oBinding = oList.getBinding();
 			oBinding.filter(aFilter);
 
 		}, 

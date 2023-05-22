@@ -1,67 +1,110 @@
 <mvc:View
 	controllerName="sap.ui.demo.walkthrough.controller.ProductsList"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
-	<Page
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m">
+	<m:Page
 		showNavButton="true"
-		navButtonPress=".onNavBack">
-		<headerContent>
-			<Title text="{i18n>appTitle}"/>
-		</headerContent>
-		<content>
-		<Table id="productsTable" items="{/Products}">
-			<headerToolbar>
-				<Toolbar>
-					<Title text="{i18n>productListTitle}"/>
-					<ToolbarSpacer/>
-					<SearchField width="50%" search=".onFilterProducts"/>
-				</Toolbar>
-			</headerToolbar>
+		navButtonPress=".onNavBack"
+		title="{i18n>appTitle}">
+		<m:content>
+		<Table id="productsTable"
+					editable="false"
+					rows="{
+						path: 'Products', 
+						parameters: {expand: 'Supplier'}
+					}"
+					selectionMode="Single"
+					width="auto"
+					selectionBehavior="Row"
+					class="sapUiResponsiveMargin">
+			<extension>
+			<m:OverflowToolbar style="Clear">
+				<m:Title id="title" text="{i18n>productListTitle}"/>
+				<m:ToolbarSpacer/>
+				<m:SearchField
+					width="50%" 
+					search=".onFilterProducts" 
+					placeholder="kk"/>
+			</m:OverflowToolbar>
+			</extension>
 			<columns>
-				<Column class=".sapMSltMinWidth" id="ProductIDColumn">
-					<header>
-						<Text text="{i18n>productIDColumn}" />
-					</header>
-				</Column>
-				<Column class=".sapMSltMinWidth" id="ProductNameColumn">
-					<header>
-						<Text text="{i18n>productNameColumn}" />
-					</header>
-				</Column>
-				<Column class=".sapMSltMinWidth" id="SupplierIDColumn">
-					<header>
-						<Text text="{i18n>supplierIDColumn}" />
-					</header>
-				</Column>
-				<Column class=".sapMSltMinWidth" id="QuantityColumn">
-					<header>
-						<Text text="{i18n>quantityColumn}" />
-					</header>
-				</Column>
-				<Column class=".sapMSltMinWidth" id="PriceColumn">
-					<header>
-						<Text text="{i18n>priceColumn}"/>
-					</header>
-				</Column>
-			</columns>
+					<Column
+						id="ProductIDColumn"
+						width="30%"
+						sortProperty="ProductID">
+						<m:Label text="{i18n>productIDColumn}" />
+						<template>
+							<m:Text text="{ProductID}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="ProductNameColumn"
+						width="30%"
+						sortProperty="ProductName">
+						<m:Label text="{i18n>productNameColumn}" />
+						<template>
+							<m:Text text="{ProductName}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="SupplierIDColumn"
+						width="30%"
+						sortProperty="SupplierID">
+						<m:Label text="{i18n>supplierIDColumn}" />
+						<template>
+							<m:Text text="{SupplierID}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="QuantityColumn"
+						width="30%"
+						sortProperty="UnitsInStock">
+						<m:Label text="{i18n>quantityColumn}" />
+						<template>
+							<m:Text text="{UnitsInStock}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PriceColumn"
+						width="30%"
+						sortProperty="UnitPrice">
+						<m:Label text="{i18n>priceColumn}" />
+						<template>
+							<m:Text text="{UnitPrice}" wrapping="false" />
+						</template>
+					</Column>
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
+				</footer>
+		<!-- <Table id="productsTable" items="{/Products}">
+			<m:OverflowToolbar>
+				<m:Toolbar>
+					<m:Title text="{i18n>productListTitle}"/>
+					<m:ToolbarSpacer/>
+					<m:SearchField width="50%" search=".onFilterProducts"/>
+				</m:Toolbar>
+			</m:OverflowToolbar>
 			<items>
 				<ColumnListItem
 				type="Navigation"
 							press="onPress">
-					<Text text="{ProductID}"/>
-					<Text text="{ProductName}" />
-					<Text text="{SupplierID}" />
-					<Text text="{UnitsInStock}" />
-					<Text text="{UnitPrice}" />
+					<m:Text text="{ProductID}"/>
+					<m:Text text="{ProductName}" />
+					<m:Text text="{SupplierID}" />
+					<m:Text text="{UnitsInStock}" />
+					<m:Text text="{UnitPrice}" />
 				</ColumnListItem>
 			</items>
+		</Table> -->
 		</Table>
-		</content>
-		<footer>
-				<OverflowToolbar>
-				<ToolbarSpacer/>
-				<Title text="{i18n>appDevelopers}"/>
-			</OverflowToolbar>
-		</footer>
-	</Page>
+		</m:content>
+		<m:footer>
+				<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Title text="{i18n>appDevelopers}"/>
+			</m:OverflowToolbar>
+		</m:footer>
+	</m:Page>
 </mvc:View>
