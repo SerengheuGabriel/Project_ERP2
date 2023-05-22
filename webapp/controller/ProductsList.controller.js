@@ -1,5 +1,5 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"./BaseController",
 	"sap/ui/core/routing/History",
 	"sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -7,9 +7,9 @@ sap.ui.define([
 	"sap/m/List",
 	"sap/m/StandardListItem",
 	"sap/m/Button"
-], function (Controller, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
+], function (BaseController, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
 	"use strict";
-	return Controller.extend("sap.ui.demo.walkthrough.controller.ItemsList", {
+	return BaseController.extend("sap.ui.demo.walkthrough.controller.ItemsList", {
 
 
 		onInit: function () {
