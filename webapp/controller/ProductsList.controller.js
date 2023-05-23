@@ -38,13 +38,7 @@ sap.ui.define([
 		},
 
 		onFilterProducts: function (oEvent) {
-            //var aFilter = [];
             var sQuery = oEvent.getParameter("query");
-        
-            //aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
-
-            // aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-            //      new Filter("ProductID", FilterOperator.Contains, sQuery)], and: false}));
 
             if(isNaN(parseInt(sQuery)))
                 var oFilter = new Filter("ProductName", FilterOperator.Contains, sQuery);
@@ -73,43 +67,14 @@ sap.ui.define([
 			var oView = this.getView();
 			var oDialog = oView.byId("productInfoDialog");
 
-			//console.log(oSelectedEntry);
-			//oDialog.bindElement(oSelectedEntry);
 			oView.setModel(new sap.ui.model.json.JSONModel(oSelectedEntry), "productInfo");
 			oDialog.open();
 		},
-		onPress: function (oEvent) {
-			var oItem = oEvent.getSource();
-			var oSelectedProduct = oItem.getBindingContext().getObject();
-
-			var oList = new List({
-				items: 
-					new StandardListItem({
-						title: oSelectedProduct.ProductName,
-						description: "{i18n>priceField}" + oSelectedProduct.UnitPrice.substring(0, oSelectedProduct.UnitPrice.length - 2),
-						info: oSelectedProduct.QuantityPerUnit,
-						fieldGroupIds: toString(oSelectedProduct.CategoryID),
-						counter: parseInt(oSelectedProduct.UnitsInStock)
-					})
-			});
-			this.oDraggableDialog = new Dialog({
-				title: oSelectedProduct.ProductName,
-				contentWidth: "30%",
-				contentHeight: "20%",
-				draggable: true,
-				content: oList,
-				endButton: new Button({
-					text: "{i18n>closeButton}",
-					press: function () {
-						this.oDraggableDialog.close();
-					}.bind(this)
-				})
-			});
-
-			//to get access to the controller's model
-			this.getView().addDependent(this.oDraggableDialog);
-
-			this.oDraggableDialog.open();
+		closeDialog: function() {
+			var oView = this.getView();
+			var oDialog = oView.byId("productInfoDialog");
+	  
+			oDialog.close();
 		}
 
 	});

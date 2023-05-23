@@ -26,8 +26,7 @@
 				<m:ToolbarSpacer/>
 				<m:SearchField
 					width="50%" 
-					search=".onFilterProducts" 
-					placeholder="{i18n>placeholder}"/>
+					search=".onFilterProducts" />
 			</m:OverflowToolbar>
 			</extension>
 			<columns>
@@ -80,31 +79,11 @@
 				<footer>
 					<m:OverflowToolbar id="infobar"></m:OverflowToolbar>
 				</footer>
-		<!-- <Table id="productsTable" items="{/Products}">
-			<m:OverflowToolbar>
-				<m:Toolbar>
-					<m:Title text="{i18n>productListTitle}"/>
-					<m:ToolbarSpacer/>
-					<m:SearchField width="50%" search=".onFilterProducts"/>
-				</m:Toolbar>
-			</m:OverflowToolbar>
-			<items>
-				<ColumnListItem
-				type="Navigation"
-							press="onPress">
-					<m:Text text="{ProductID}"/>
-					<m:Text text="{ProductName}" />
-					<m:Text text="{SupplierID}" />
-					<m:Text text="{UnitsInStock}" />
-					<m:Text text="{UnitPrice}" />
-				</ColumnListItem>
-			</items>
-		</Table> -->
 		</Table>
-		<m:Dialog id="productInfoDialog" title="{i18n>dialogBoxTitle}">
+		<m:Dialog id="productInfoDialog" title="{i18n>dialogBoxTitle}" draggable="true">
 			<m:content>
 				<m:VBox class="sapUiSmallMargin">
-					<f:SimpleForm id="SimpleFormDisplay354"
+					<f:SimpleForm id="SimpleForm"
 						editable="false"
 						layout="ResponsiveGridLayout"
 						labelSpanXL="3"
@@ -121,18 +100,21 @@
 						columnsM="1"
 						singleContainerFullSize="false" >
 						<f:content>
-							<m:Label text="Product Name" />
-							<m:Text id="productName" text="{productInfo>SupplierName}" />
-							<m:Label text="Price per Unit" />
-							<m:Text id="unitPrice" text="{productInfo>UnitPrice}" />
-							<m:Label text="Quantity per Unit" />
-							<m:Text id="quantityPerUnit" text="{productInfo>QuantityPerUnit}" />
-							<m:Label text="Units in Stock" />
-							<m:Text id="unitsInStock" text="{productInfo>UnitsInStock}" />
+							<m:Label text="{i18n>productName}" />
+							<m:Text id="productName" text="{productInfo>/ProductName}" />
+							<m:Label text="{i18n>pricePerUnit}" />
+							<m:Text id="unitPrice" text="{productInfo>/UnitPrice}" />
+							<m:Label text="{i18n>quantityPerUnit}" />
+							<m:Text id="quantityPerUnit" text="{productInfo>/QuantityPerUnit}" />
+							<m:Label text="{i18n>unitsInStock}" />
+							<m:Text id="unitsInStock" text="{productInfo>/UnitsInStock}" />
 						</f:content>
 					</f:SimpleForm>
 				</m:VBox>
 			</m:content>
+			<m:endButton>
+				<m:Button text="{i18n>closeButton}" press="closeDialog"/>
+			</m:endButton>
 		</m:Dialog>
 		</m:content>
 		<m:footer>
