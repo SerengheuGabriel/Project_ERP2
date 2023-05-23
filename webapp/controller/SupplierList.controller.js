@@ -1,12 +1,11 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
-	"sap/ui/model/json/JSONModel",
+	"./BaseController",
 	"../model/formatter",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (Controller, JSONModel, formatter, Filter, FilterOperator) {
+], function (BaseController, formatter, Filter, FilterOperator) {
 	"use strict";
-	return Controller.extend("sap.ui.demo.walkthrough.controller.SupplierList", {
+	return BaseController.extend("sap.ui.demo.walkthrough.controller.SupplierList", {
 		formatter: formatter, 
 		onFilterInvoices : function (oEvent) {
 
@@ -15,7 +14,7 @@ sap.ui.define([
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
 				aFilter.push(new Filter({filters:[new Filter("CompanyName", FilterOperator.Contains, sQuery),
-				 new Filter("Country", FilterOperator.Contains, sQuery)], and: false}));
+				 new Filter("Country", FilterOperator.Contains, sQuery), new Filter("Address", FilterOperator.Contains, sQuery)], and: false}));
 			}
 
 			// filter binding

@@ -1,5 +1,5 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"./BaseController",
 	"sap/ui/core/routing/History",
 	"sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -7,9 +7,9 @@ sap.ui.define([
 	"sap/m/List",
 	"sap/m/StandardListItem",
 	"sap/m/Button"
-], function (Controller, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
+], function (BaseController, History, Filter, FilterOperator, Dialog, List, StandardListItem, Button) {
 	"use strict";
-	return Controller.extend("sap.ui.demo.walkthrough.controller.ItemsList", {
+	return BaseController.extend("sap.ui.demo.walkthrough.controller.ProductsList", {
 
 
 		onInit: function () {
@@ -19,15 +19,9 @@ sap.ui.define([
 		
 		_onObjectMatched: function (oEvent) {
 
-			var aFilter = [];
-			var oArgs = oEvent.getParameter("arguments").supplierPath;
-			var oFilter1 = new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, oArgs);
-			aFilter.push(oFilter1);
-
-			// filter binding
-			var oList = this.byId("productsTable");
-			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
+			var sPath = this.getView().getModel().createKey("/Suppliers",
+                {SupplierID: oEvent.getParameter("arguments").supplierPath});
+            this.getView().bindElement({path: sPath});
 
 		},
 
@@ -44,53 +38,43 @@ sap.ui.define([
 		},
 
 		onFilterProducts: function (oEvent) {
-			var aFilter = [];
-			var sQuery = oEvent.getParameter("query");
-			if (sQuery) {
-				aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-				new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text"))], and: true}));
-			} else {
-				aFilter.push(new Filter("SupplierID", sap.ui.model.FilterOperator.EQ, this.getView().byId("productsTable").getItems()[0].getAggregation("cells")[2].getProperty("text")));
-			}
+            var sQuery = oEvent.getParameter("query");
 
-			// filter binding
-			var oList = this.byId("productsTable");
-			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
+            if(isNaN(parseInt(sQuery)))
+                var oFilter = new Filter("ProductName", FilterOperator.Contains, sQuery);
+            else
+                var oFilter = new Filter("ProductID", FilterOperator.EQ,sQuery);
+            var aFilter = new Filter({
+                filters:[oFilter],
+                and:false
+            })
+            // filter binding
+            var oList = this.byId("productsTable");
+            var oBinding = oList.getBinding();
+            oBinding.filter(aFilter);
 
-		}, 
-		onPress: function (oEvent) {
-			var oItem = oEvent.getSource();
-			var oSelectedProduct = oItem.getBindingContext().getObject();
+        },  
+		onSelectionChange: function (oEvent) {
+			var oTable = oEvent.getSource();
+			var aSelectedIndices = oTable.getSelectedIndices();
+			var oSelectedItem = oTable.getContextByIndex(aSelectedIndices[0]);
+			  var oModel = oTable.getModel();
+			  var oSelectedEntry = oModel.getProperty(oSelectedItem.getPath());
+	  
+			  this._openDetailsDialog(oSelectedEntry);
+		},
+		_openDetailsDialog: function(oSelectedEntry) {
+			var oView = this.getView();
+			var oDialog = oView.byId("productInfoDialog");
 
-			var oList = new List({
-				items: 
-					new StandardListItem({
-						title: oSelectedProduct.ProductName,
-						description: "{i18n>priceField}" + oSelectedProduct.UnitPrice.substring(0, oSelectedProduct.UnitPrice.length - 2),
-						info: oSelectedProduct.QuantityPerUnit,
-						fieldGroupIds: toString(oSelectedProduct.CategoryID),
-						counter: parseInt(oSelectedProduct.UnitsInStock)
-					})
-			});
-			this.oDraggableDialog = new Dialog({
-				title: oSelectedProduct.ProductName,
-				contentWidth: "30%",
-				contentHeight: "20%",
-				draggable: true,
-				content: oList,
-				endButton: new Button({
-					text: "{i18n>closeButton}",
-					press: function () {
-						this.oDraggableDialog.close();
-					}.bind(this)
-				})
-			});
-
-			//to get access to the controller's model
-			this.getView().addDependent(this.oDraggableDialog);
-
-			this.oDraggableDialog.open();
+			oView.setModel(new sap.ui.model.json.JSONModel(oSelectedEntry), "productInfo");
+			oDialog.open();
+		},
+		closeDialog: function() {
+			var oView = this.getView();
+			var oDialog = oView.byId("productInfoDialog");
+	  
+			oDialog.close();
 		}
 
 	});
