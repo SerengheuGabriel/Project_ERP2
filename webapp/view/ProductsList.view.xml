@@ -2,7 +2,8 @@
 	controllerName="sap.ui.demo.walkthrough.controller.ProductsList"
 	xmlns="sap.ui.table"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:m="sap.m">
+	xmlns:m="sap.m"
+	xmlns:f="sap.ui.layout.form">
 	<m:Page
 		showNavButton="true"
 		navButtonPress=".onNavBack"
@@ -17,6 +18,7 @@
 					selectionMode="Single"
 					width="auto"
 					selectionBehavior="Row"
+					rowSelectionChange="onSelectionChange"
 					class="sapUiResponsiveMargin">
 			<extension>
 			<m:OverflowToolbar style="Clear">
@@ -99,12 +101,45 @@
 			</items>
 		</Table> -->
 		</Table>
+		<m:Dialog id="productInfoDialog" title="{i18n>dialogBoxTitle}">
+			<m:content>
+				<m:VBox class="sapUiSmallMargin">
+					<f:SimpleForm id="SimpleFormDisplay354"
+						editable="false"
+						layout="ResponsiveGridLayout"
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="3"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4"
+						emptySpanL="4"
+						emptySpanM="4"
+						emptySpanS="0"
+						columnsXL="1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false" >
+						<f:content>
+							<m:Label text="Product Name" />
+							<m:Text id="productName" text="{productInfo>SupplierName}" />
+							<m:Label text="Price per Unit" />
+							<m:Text id="unitPrice" text="{productInfo>UnitPrice}" />
+							<m:Label text="Quantity per Unit" />
+							<m:Text id="quantityPerUnit" text="{productInfo>QuantityPerUnit}" />
+							<m:Label text="Units in Stock" />
+							<m:Text id="unitsInStock" text="{productInfo>UnitsInStock}" />
+						</f:content>
+					</f:SimpleForm>
+				</m:VBox>
+			</m:content>
+		</m:Dialog>
 		</m:content>
 		<m:footer>
-				<m:OverflowToolbar>
-				<m:ToolbarSpacer/>
-				<m:Title text="{i18n>appDevelopers}"/>
-			</m:OverflowToolbar>
+			<m:OverflowToolbar>
+			<m:ToolbarSpacer/>
+			<m:Title text="{i18n>appDevelopers}"/>
+		</m:OverflowToolbar>
 		</m:footer>
 	</m:Page>
 </mvc:View>

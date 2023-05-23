@@ -38,20 +38,46 @@ sap.ui.define([
 		},
 
 		onFilterProducts: function (oEvent) {
-			var aFilter = [];
-			var sQuery = oEvent.getParameter("query");
-		
-			aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
+            //var aFilter = [];
+            var sQuery = oEvent.getParameter("query");
+        
+            //aFilter.push(new Filter("ProductName", FilterOperator.Contains, sQuery));
 
-			// aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
-			// 	 new Filter("ProductID", FilterOperator.Contains, sQuery)], and: false}));
+            // aFilter.push(new Filter({filters:[new Filter("ProductName", FilterOperator.Contains, sQuery),
+            //      new Filter("ProductID", FilterOperator.Contains, sQuery)], and: false}));
 
-			// filter binding
-			var oList = this.byId("productsTable");
-			var oBinding = oList.getBinding();
-			oBinding.filter(aFilter);
+            if(isNaN(parseInt(sQuery)))
+                var oFilter = new Filter("ProductName", FilterOperator.Contains, sQuery);
+            else
+                var oFilter = new Filter("ProductID", FilterOperator.EQ,sQuery);
+            var aFilter = new Filter({
+                filters:[oFilter],
+                and:false
+            })
+            // filter binding
+            var oList = this.byId("productsTable");
+            var oBinding = oList.getBinding();
+            oBinding.filter(aFilter);
 
-		}, 
+        },  
+		onSelectionChange: function (oEvent) {
+			var oTable = oEvent.getSource();
+			var aSelectedIndices = oTable.getSelectedIndices();
+			var oSelectedItem = oTable.getContextByIndex(aSelectedIndices[0]);
+			  var oModel = oTable.getModel();
+			  var oSelectedEntry = oModel.getProperty(oSelectedItem.getPath());
+	  
+			  this._openDetailsDialog(oSelectedEntry);
+		},
+		_openDetailsDialog: function(oSelectedEntry) {
+			var oView = this.getView();
+			var oDialog = oView.byId("productInfoDialog");
+
+			//console.log(oSelectedEntry);
+			//oDialog.bindElement(oSelectedEntry);
+			oView.setModel(new sap.ui.model.json.JSONModel(oSelectedEntry), "productInfo");
+			oDialog.open();
+		},
 		onPress: function (oEvent) {
 			var oItem = oEvent.getSource();
 			var oSelectedProduct = oItem.getBindingContext().getObject();
